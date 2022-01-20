@@ -1,28 +1,34 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_list_provider/app/core/widget/todo_list_logo.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    int _index =
-    0; // Make sure this is outside build(), otherwise every setState will chage the value back to 0 
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+                minWidth: constraints.maxWidth,
+              ),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(height: 10),
+                    TodoListLogo(),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
       ),
-      body: Center(
-        child: Container(child: Text('You tapped the FAB $_index times')),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-
-        tooltip: 'Increment Counter',
-        child: Icon(Icons.add), //Change Icon
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation
-          .endFloat, //Change for different locations
-    );;
+    );
   }
 }
