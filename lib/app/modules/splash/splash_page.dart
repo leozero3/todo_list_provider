@@ -5,6 +5,12 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(title: Text('Splash'),),
+      body: Center(
+        child: TextButton(onPressed: () => Navigator.of(context).pushNamed('/login'),
+        child: Text('Button'),),
+      ),
+    );
   }
 }
