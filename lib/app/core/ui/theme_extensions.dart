@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 extension ThemeExtension on BuildContext {
@@ -11,7 +9,7 @@ extension ThemeExtension on BuildContext {
 
   TextTheme get textTheme => Theme.of(this).textTheme;
 
-  TextStyle get titleStyle => TextStyle(
+  TextStyle get titleStyle => const TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.bold,
         color: Colors.grey,
