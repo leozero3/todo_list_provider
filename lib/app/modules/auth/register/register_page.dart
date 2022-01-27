@@ -3,8 +3,15 @@ import 'package:todo_list_provider/app/core/ui/theme_extensions.dart';
 import 'package:todo_list_provider/app/core/widget/todo_list_field.dart';
 import 'package:todo_list_provider/app/core/widget/todo_list_logo.dart';
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  RegisterPage({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +45,7 @@ class RegisterPage extends StatelessWidget {
           icon: ClipOval(
             child: Container(
               color: context.primaryColor.withAlpha(20),
-              padding: EdgeInsets.all(8),
+              padding: const EdgeInsets.all(8),
               child: Icon(
                 Icons.arrow_back_ios_new_outlined,
                 size: 20,
@@ -48,46 +55,49 @@ class RegisterPage extends StatelessWidget {
           ),
         ),
       ),
-      body: ListView(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.width * .5,
-            child: FittedBox(
-              child: TodoListLogo(),
-              fit: BoxFit.fitHeight,
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.width * .5,
+              child: FittedBox(
+                child: TodoListLogo(),
+                fit: BoxFit.fitHeight,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-            child: Form(
-              child: Column(
-                children: [
-                  TodoListField(label: 'E-Mail'),
-                  SizedBox(height: 20),
-                  TodoListField(label: 'Senha', obscureText: true),
-                  SizedBox(height: 20),
-                  TodoListField(label: 'Confirmar Senha', obscureText: true),
-                  SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text('Salvar'),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+              child: Form(
+                child: Column(
+                  children: [
+                    TodoListField(label: 'E-Mail'),
+                    const SizedBox(height: 20),
+                    TodoListField(label: 'Senha', obscureText: true),
+                    const SizedBox(height: 20),
+                    TodoListField(label: 'Confirmar Senha', obscureText: true),
+                    const SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text('Salvar'),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

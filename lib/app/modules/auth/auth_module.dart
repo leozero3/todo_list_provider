@@ -13,7 +13,7 @@ class AuthModule extends TodoListModule {
               create: (_) => LoginController(),
             ),
             ChangeNotifierProvider(
-              create: (_) => RegisterControler(),
+              create: (context) => RegisterController(userService: context.read()),
             ),
           ],
           routers: {
