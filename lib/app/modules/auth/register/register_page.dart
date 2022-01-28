@@ -26,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailEC.dispose();
     _passwordEC.dispose();
     _confirmPasswordEC.dispose();
-    context.read<RegisterController>().removeListener(() { });
+    context.read<RegisterController>().removeListener(() {});
     super.dispose();
   }
 
@@ -35,15 +35,18 @@ class _RegisterPageState extends State<RegisterPage> {
     super.initState();
     final controller = context.read<RegisterController>();
     controller.addListener(() {
-
       var success = controller.sucess;
       var error = controller.error;
       if (success) {
         Navigator.of(context).pop();
-      }  else if (error != null && error.isNotEmpty) {
-        
-      }  
-    
+      } else if (error != null && error.isNotEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     });
   }
 
@@ -138,12 +141,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
                       onPressed: () {
-                        final formValid = _formKey.currentState?.validate() ?? false;
+                        final formValid =
+                            _formKey.currentState?.validate() ?? false;
                         if (formValid) {
-
                           var email = _emailEC.text;
                           var password = _passwordEC.text;
-                          context.read<RegisterController>().registerUser(email, password);
+                          context
+                              .read<RegisterController>()
+                              .registerUser(email, password);
                         }
                       },
                       child: const Padding(

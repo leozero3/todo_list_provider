@@ -23,7 +23,7 @@ class AppMudule extends StatelessWidget {
           lazy: false,
         ),
         Provider<UserRepository>(
-          create: (_) => UserRepositoryImpl(firebaseAuth: context.read()),
+          create: (context) => UserRepositoryImpl(firebaseAuth: context.read()),
         ),
         Provider<UserService>(
           create: (context) => UserServiceImpl(userRepository: context.read()),
