@@ -80,24 +80,44 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<User?> googleLogin() async {
-    final googleSignIn = GoogleSignIn();
-    final googleUser = await googleSignIn.signIn();
-    if (googleUser != null) {
-      final loginMethods =
-          await _firebaseAuth.fetchSignInMethodsForEmail(googleUser.email);
+    List<String>? loginMethods;
+    try {
+      final googleSignIn = GoogleSignIn();
+      final googleUser = await googleSignIn.signIn();
+      if (googleUser != null) {
+        loginMethods =
+            await _firebaseAuth.fetchSignInMethodsForEmail(googleUser.email);
 
-      if (loginMethods.contains('password')) {
-        throw AuthException(message: 'Você utilizou o e-mail para cadastro');
+        if (loginMethods.contains('password')) {
+          throw AuthException(message: 'Você utilizou o e-mail para cadastro');
+        } else {
+          final googleAuth = await googleUser.authentication;
+          final firebaseCredential = GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          );
+          var userCredential =
+              await _firebaseAuth.signInWithCredential(firebaseCredential);
+          return userCredential.user;
+        }
+      }
+    } on FirebaseAuthException catch (e, s) {
+      print(e);
+      print(s);
+      if (e.code == 'account-exists-with-different-credential') {
+        throw AuthException(message: '''
+        Login invalido, você se registrou no TodoList com os seguintes provedores:
+        ${loginMethods?.join(',')}
+        ''');
       } else {
-        final googleAuth = await googleUser.authentication;
-        final firebaseCredential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
-        );
-        var userCredential =
-            await _firebaseAuth.signInWithCredential(firebaseCredential);
-        return userCredential.user;
+        throw AuthException(message: 'Erro ao realizar login');
       }
     }
+  }
+
+  @override
+  Future<void> googleLogout() async{
+    await GoogleSignIn().signOut();
+    _firebaseAuth.signOut();
   }
 }
