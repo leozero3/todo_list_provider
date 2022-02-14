@@ -9,5 +9,5 @@ abstract class UserRepository {
 
   Future<User?> googleLogin();
 
-  Future<void> googleLogout();
+  Future<void> logout();
 }
