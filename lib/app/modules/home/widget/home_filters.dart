@@ -20,11 +20,10 @@ class _HomeFiltersState extends State<HomeFilters> {
           child: Row(
             children: [
               TodoCartFilter(),
-              Container(color: Colors.red, width: 100, height: 100),
-              Container(color: Colors.red, width: 100, height: 100),
-              Container(color: Colors.red, width: 100, height: 100),
-              Container(color: Colors.red, width: 100, height: 100),
-              Container(color: Colors.red, width: 100, height: 100),
+              TodoCartFilter(),
+              TodoCartFilter(),
+              TodoCartFilter(),
+              TodoCartFilter(),
             ],
           ),
         )
