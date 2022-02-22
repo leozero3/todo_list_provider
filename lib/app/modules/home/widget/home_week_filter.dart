@@ -28,9 +28,6 @@ class HomeWeekFilter extends StatelessWidget {
             monthTextStyle: TextStyle(fontSize: 8),
             dayTextStyle: TextStyle(fontSize: 13),
             dateTextStyle: TextStyle(fontSize: 13),
-
-
-
           ),
         )
       ],

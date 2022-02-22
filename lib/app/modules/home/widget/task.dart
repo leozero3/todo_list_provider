@@ -11,6 +11,7 @@ class Task extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 5),
       child: IntrinsicHeight(
         child: ListTile(
+          contentPadding: EdgeInsets.all(8),
           leading: Checkbox(
             value: true,
             onChanged: (value) {},
@@ -18,14 +19,18 @@ class Task extends StatelessWidget {
           title: Text(
             'Descrição da TASK',
             style: TextStyle(
-              decoration: false ? TextDecoration.lineThrough : null,
+              decoration: true ? TextDecoration.lineThrough : null,
             ),
           ),
           subtitle: Text(
             '20/10/2021',
             style: TextStyle(
-              decoration: false ? TextDecoration.lineThrough : null,
+              decoration: true ? TextDecoration.lineThrough : null,
             ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(width: 1),
           ),
         ),
       ),
