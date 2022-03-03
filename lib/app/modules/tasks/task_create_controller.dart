@@ -10,4 +10,32 @@ class TaskCreateController extends DefaultChangeNotifier{
   TaskCreateController({required TasksServices tasksServices
 }): _tasksServices = tasksServices;
 
+  set selectedDate(DateTime? selectedDate) {
+    resetState();
+    _selectedDate = selectedDate;
+    notifyListeners();
+  }
+
+  DateTime? get selectedDate => _selectedDate;
+
+  Future<void> save(String description) async {
+    try {
+      showLoadingAndResetState();
+      notifyListeners();
+      if (_selectedDate != null) {
+        await _tasksServices.save(_selectedDate!, description);
+      }else{
+        setError('Data da Task não selecionada');
+      }
+    } catch (e,s) {
+      print(e);
+      print(s);
+      setError('Erro ao cadatrar Task');
+    }finally{
+      hideLoading();
+      notifyListeners();
+    }
+
+
+  }
 }
