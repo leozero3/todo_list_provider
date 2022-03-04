@@ -25,11 +25,14 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
   @override
   void initState() {
     super.initState();
-    DefaultListenerNotifier(changeNotifier: widget._controller).listener(
-        context: context, successCallback: (notifier, listenerInstanece) {
-      listenerInstanece.dispose();
-      Navigator.pop(context);
-    });
+    DefaultListenerNotifier(
+      changeNotifier: widget._controller,
+    ).listener(
+        context: context,
+        successCallback: (notifier, listenerInstance) {
+          listenerInstance.dispose();
+          Navigator.pop(context);
+        });
   }
 
   @override
@@ -83,12 +86,13 @@ class _TaskCreatePageState extends State<TaskCreatePage> {
               ),
             ),
             SizedBox(height: 30),
-            TodoListField(label: '',
+            TodoListField(
+              label: '',
               controller: _descriptionEC,
-              validator: Validatorless.required('Descrição é obrigatoria'),),
+              validator: Validatorless.required('Descrição é obrigatoria'),
+            ),
             SizedBox(height: 20),
             CalendarButton(),
-
           ],
         ),
       ),

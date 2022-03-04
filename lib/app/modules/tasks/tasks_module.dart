@@ -22,7 +22,9 @@ class TaskModule extends TodoListModule {
             ),
           ),
           ChangeNotifierProvider(
-            create: (context) => TaskCreateController(tasksServices: context.read()),
+            create: (context) => TaskCreateController(
+              tasksServices: context.read(),
+            ),
           )
         ], routers: {
           '/task/create': (context) => TaskCreatePage(
