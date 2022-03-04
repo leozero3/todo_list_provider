@@ -22,6 +22,7 @@ class TaskCreateController extends DefaultChangeNotifier {
       notifyListeners();
       if (_selectedDate != null) {
         await _tasksServices.save(_selectedDate!, description);
+        success();
       } else {
         setError('Data da Task não selecionada');
       }
