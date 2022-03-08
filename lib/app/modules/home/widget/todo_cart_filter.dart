@@ -51,15 +51,17 @@ class TodoCartFilter extends StatelessWidget {
         children: [
           Text(
             '${totalTasksModel?.totalTasks ?? 0} Tasks',
-            style:
-                context.titleStyle.copyWith(fontSize: 10, color: Colors.white),
+            style: context.titleStyle.copyWith(
+              fontSize: 10,
+              color: selected ? Colors.white : Colors.grey,
+            ),
           ),
           Text(
             label,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: selected ? Colors.white : Colors.black,
             ),
           ),
           TweenAnimationBuilder<double>(
@@ -67,9 +69,11 @@ class TodoCartFilter extends StatelessWidget {
             duration: Duration(seconds: 1),
             builder: (context, value, child) {
               return LinearProgressIndicator(
-                backgroundColor: context.primaryColorLight,
+                backgroundColor:
+                    selected ? context.primaryColorLight : Colors.grey.shade300,
                 value: value,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor: AlwaysStoppedAnimation<Color>(
+                    selected ? Colors.white : context.primaryColor),
               );
             },
           )
