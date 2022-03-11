@@ -35,5 +35,6 @@ class TaskRepositoryImpl implements TasksRepository {
       endFilter.toIso8601String(),
     ]);
     return result.map((e) => TaskModel.loadFromDB(e)).toList();
+
   }
 }
