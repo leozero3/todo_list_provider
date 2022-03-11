@@ -5,11 +5,11 @@ class MigrationV1 implements Migration {
   @override
   void create(Batch batch) {
     batch.execute('''
-      CREATE TABLE TODO(
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      DESCRICAO VARCHAR(500) NOT NULL,
-      DATA_HORA DATETIME, 
-      FINALIZADO INTEGER
+      create table todo(
+        id Integer primary key autoincrement,
+        descricao varchar(200) not null,
+        data_hora datetime,
+        finalizado integer
     )
     ''');
   }
