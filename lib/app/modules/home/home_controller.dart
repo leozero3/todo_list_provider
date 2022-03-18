@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:todo_list_provider/app/core/notifier/default_change_notifier.dart';
 import 'package:todo_list_provider/app/models/task_filter_enum.dart';
 import 'package:todo_list_provider/app/models/task_model.dart';
@@ -5,7 +7,6 @@ import 'package:todo_list_provider/app/models/total_tasks_model.dart';
 import 'package:todo_list_provider/app/models/week_task_model.dart';
 
 import '../../services/tasks/tasks_service.dart';
-
 
 class HomeController extends DefaultChangeNotifier {
   final TasksServices _tasksServices;
@@ -15,6 +16,8 @@ class HomeController extends DefaultChangeNotifier {
   TotalTasksModel? todayTotalTasks;
   TotalTasksModel? tomorrowTotalTasks;
   TotalTasksModel? weekTotalTasks;
+  List<TaskModel> allTasks = [];
+  List<TaskModel> filteredTasks = [];
 
   HomeController({required TasksServices tasksServices})
       : _tasksServices = tasksServices;
@@ -47,9 +50,34 @@ class HomeController extends DefaultChangeNotifier {
     notifyListeners();
   }
 
-
-  Future<void> findTasks({required TaskFilterEnum filter}) async{
+  Future<void> findTasks({required TaskFilterEnum filter}) async {
     filterSelected = filter;
+    showLoading();
+    notifyListeners();
+    List<TaskModel> tasks;
+
+    switch (filter) {
+      case TaskFilterEnum.today:
+        tasks = await _tasksServices.getToday();
+        break;
+      case TaskFilterEnum.tomorrow:
+        tasks = await _tasksServices.getTomorrow();
+        break;
+      case TaskFilterEnum.week:
+        final weekModel = await _tasksServices.getWeek();
+        tasks = weekModel.tasks;
+        break;
+    }
+    filteredTasks = tasks;
+    allTasks = tasks;
+
+    hideLoading();
+    notifyListeners();
+  }
+
+  Future<void> refreshPage() async {
+    await findTasks(filter: filterSelected);
+    await loadTotalTasks();
     notifyListeners();
   }
 }
