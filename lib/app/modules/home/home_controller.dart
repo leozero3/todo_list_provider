@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:todo_list_provider/app/core/notifier/default_change_notifier.dart';
 import 'package:todo_list_provider/app/models/task_filter_enum.dart';
 import 'package:todo_list_provider/app/models/task_model.dart';
@@ -18,6 +16,7 @@ class HomeController extends DefaultChangeNotifier {
   TotalTasksModel? weekTotalTasks;
   List<TaskModel> allTasks = [];
   List<TaskModel> filteredTasks = [];
+  DateTime? initialOfWeek;
 
   HomeController({required TasksServices tasksServices})
       : _tasksServices = tasksServices;
@@ -65,6 +64,7 @@ class HomeController extends DefaultChangeNotifier {
         break;
       case TaskFilterEnum.week:
         final weekModel = await _tasksServices.getWeek();
+        initialOfWeek = weekModel.startDate;
         tasks = weekModel.tasks;
         break;
     }

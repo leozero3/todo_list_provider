@@ -66,8 +66,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           PopupMenuButton(
             icon: Icon(TodoListIcons.filter),
-            itemBuilder: (BuildContext context) =>
-            [
+            itemBuilder: (BuildContext context) => [
               PopupMenuItem<bool>(
                 child: Text('Mostrar Tarefas concluidas'),
               ),
