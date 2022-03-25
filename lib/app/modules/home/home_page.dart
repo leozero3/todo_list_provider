@@ -66,9 +66,14 @@ class _HomePageState extends State<HomePage> {
         actions: [
           PopupMenuButton(
             icon: Icon(TodoListIcons.filter),
+            onSelected: (value) {
+              widget._homeController.showOrHideFinishingTask();
+            },
             itemBuilder: (BuildContext context) => [
               PopupMenuItem<bool>(
-                child: Text('Mostrar Tarefas concluidas'),
+                value: true,
+                child: Text(
+                    '${widget._homeController.showFinishingTasks ? 'Esconder' : 'Mostrar'} Tarefas concluidas'),
               ),
             ],
           ),
